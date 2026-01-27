@@ -1,142 +1,199 @@
 # crescent-visibility-analysis
 Machine learning–based analysis and prediction of lunar crescent visibility using astronomical and geospatial features.
-### crescent-visibility-analysis
-This project analyzes lunar crescent visibility data and builds machine learning models to predict whether the crescent will be visible from a given location and time.
-The goal is to combine geospatial analysis, feature engineering, and predictive modeling to understand patterns in lunar observations.
+🌙 Crescent Visibility Analysis and Prediction
+📌 Project Overview
 
-## Dataset
+Predicting the visibility of the lunar crescent is a well-known astronomical and observational challenge with applications in calendar determination and observational astronomy.
+This project analyzes a large dataset of lunar crescent observations and applies data analysis, geospatial visualization, and machine learning models to understand and predict crescent visibility based on astronomical and geographic features.
 
-The dataset contains observations of crescent visibility across multiple locations and dates. Key features include:
+The repository is structured as a reproducible data science pipeline, separating data processing, visualization, modeling, and evaluation.
 
-## Feature	Description
-Lat, Long	Geographic coordinates of observation
-ArcV, ArcL	Arc of Vision and Arc of Light
-DAZ	Difference in azimuth between moon and sun
-W	Crescent width (in degrees)
-JD	Julian Date of observation
-Ele	Elevation angle
-Sunset, Moonset	Times of sunset and moonset
-V	Visibility label (V = visible, I = invisible)
+🎯 Objectives
 
-The raw data is located in data/raw/Final.csv. After processing, cleaned data is stored in data/processed/processed_data.csv.
+Perform exploratory data analysis (EDA) on lunar crescent visibility data
 
-## Project Structure 
+Visualize geographic patterns of visibility across the world
 
+Engineer relevant astronomical features
+
+Train and evaluate machine learning models to predict crescent visibility
+
+Compare a baseline model (Logistic Regression) with a non-linear model (Random Forest)
+
+Identify the most influential features affecting visibility
+
+🗂️ Project Structure
 crescent-visibility-analysis/
+│
 ├── data/
-│   ├── raw/                 # Raw dataset
-│   └── processed/           # Cleaned dataset
-├── notebooks/               # Exploration and visualization notebooks
-│   ├── 01_exploratory_data_analysis.ipynb
-│   └── 02_modeling_experiments.ipynb
+│   ├── raw/                # Original dataset (Final.csv)
+│   └── processed/          # Cleaned and feature-engineered data
+│
+├── notebooks/
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_modeling_experiments.ipynb
+│   └── 03_visualization_examples.ipynb
+│
+├── src/
+│   ├── data_processing.py  # Data loading, cleaning, feature engineering
+│   ├── visualization.py   # Plotting and geospatial visualizations
+│   ├── models.py           # ML model training functions
+│   ├── evaluation.py       # Metrics, ROC, confusion matrices
+│   └── main.py             # End-to-end execution pipeline
+│
 ├── results/
 │   ├── figures/            # Generated plots and maps
-│   └── metrics/          
-├── src/                     # Reproducible Python modules
-│   ├── data_processing.py   # Loading, cleaning, feature engineering
-│   ├── models.py            # Model training and prediction
-│   └── evaluation.py        # Evaluation functions (metrics, ROC, confusion matrix)
-├── README.md
-└── requirements.txt         # Python dependencies
-## Workflow 
-# Data Processing (src/data_processing.py)
+│   └── metrics/            # Evaluation outputs (ROC, confusion matrix)
+│
+├── requirements.txt
+└── README.md
 
-Load raw data
+📊 Dataset Description
 
-Handle missing values
+The dataset contains astronomical and geographical parameters, including:
 
-Compute Lag_minutes (Moonset - Sunset)
+Latitude / Longitude
 
-Encode Visibility as binary
+Crescent width
 
-Save cleaned data
+Arc of vision and arc of light
 
-# Exploratory Data Analysis (notebooks/01_data_exploration.ipynb)
+Azimuth difference
 
-Feature distributions and histograms
+Elevation
 
-Geospatial maps of visibility (all points, visible only, invisible only)
+Time lag between sunset and moonset
 
-Scatter plots of key features
+Visibility label (0 = Invisible, 1 = Visible)
 
+Missing values are removed, time features are converted to numerical form, and the dataset is prepared for machine learning.
 
-Correlation analysis
+🔧 Feature Engineering
 
-Initial observations for modeling
+Key feature engineering steps include:
 
-# Modeling Experiments (notebooks/02_modeling_experiments.ipynb)
+Conversion of sunset and moonset times into datetime format
 
-Train baseline and Random Forest models
+Computation of lag in minutes between sunset and moonset
 
-Evaluate metrics: accuracy, precision, recall, F1-score, ROC AUC
+Encoding visibility labels into binary values
 
-Feature importance analysis
+Renaming features for clarity and consistency
 
-Optional hyperparameter tuning
+All processing steps are implemented in src/data_processing.py.
 
-## Key Findings 
+🌍 Visualization & Exploratory Analysis
 
-# Random Forest  
-outperforms baseline models (e.g., Logistic Regression) for predicting visibility.
+The project includes:
 
-# Lag_minutes and Crescent Width
- are the most important features for predicting visibility.
+Distribution plots of visibility classes
 
-Visible crescent observations tend to cluster in specific latitudes and regions, as shown in geospatial maps.
+Histograms of numerical features
 
-Feature distributions and correlations suggest non-linear relationships that Random Forest can capture effectively.
+Correlation heatmaps
 
-## How to Run
+Geospatial maps showing crescent visibility across the world
 
-1. Clone the repository :
+Separate maps for visible and invisible observations
 
-git clone https://github.com/yourusername/crescent-visibility-analysis.git
+Visualizations are implemented in src/visualization.py and demonstrated in 03_visualization_examples.ipynb.
+
+🤖 Machine Learning Models
+
+Two supervised classification models are used:
+
+1️⃣ Logistic Regression
+
+Serves as a baseline linear model
+
+Provides interpretability through coefficients
+
+2️⃣ Random Forest Classifier
+
+Captures non-linear relationships
+
+Robust to feature scaling and noise
+
+Provides feature importance scores
+
+Models are trained and evaluated using:
+
+Train/Test split (80/20)
+
+Confusion Matrix
+
+Precision, Recall, F1-score
+
+ROC Curve and AUC
+
+Implementation is located in src/models.py and src/evaluation.py.
+
+📈 Model Evaluation & Comparison
+
+Model performance is compared using:
+
+Accuracy
+
+Weighted F1-score
+
+ROC–AUC
+
+Results demonstrate the advantage of non-linear models (Random Forest) in capturing complex astronomical relationships.
+
+▶️ How to Run the Project
+
+Clone the repository:
+
+git clone https://github.com/your-username/crescent-visibility-analysis.git
 cd crescent-visibility-analysis
 
-2. Install dependencies :
+
+Install dependencies:
 
 pip install -r requirements.txt
 
-3. Run the main pipeline :
+
+Run the full pipeline:
 
 python src/main.py
 
-4. Open notebooks for exploration and visualization:
 
-jupyter notebook
+All figures and evaluation metrics will be saved in the results/ directory.
 
-## Visualizations
+📚 Notebooks
 
-# Distribution of Visibility: 
-Shows the number of visible vs invisible crescent observations
+01_data_exploration.ipynb – Exploratory analysis and initial insights
 
-# Feature Histograms:
- Understand feature ranges and distributions
+02_modeling_experiments.ipynb – Model training, tuning, and comparison
 
-# Correlation Heatmap:
- Identify relationships between features
+03_visualization_examples.ipynb – Visual storytelling and result interpretation
 
-# Geospatial Maps:
- Visualize visibility across latitudes and longitudes
+Notebooks are intended for analysis and presentation, while src/ contains reusable code.
 
-# Example maps:
+🧠 Key Takeaways
 
-results/figures/map_all_visibility.png
+Crescent visibility depends on multiple interacting astronomical factors
 
-results/figures/map_visibility_0.png
+Geographical location plays a significant role
 
-results/figures/map_visibility_1.png
+Non-linear models outperform linear baselines
 
-## Future Work 
+Feature importance analysis highlights the most influential parameters
 
-- Test additional models (XGBoost, LightGBM) for improved performance
+🚀 Future Work
 
-- Explore temporal patterns (seasonal or lunar cycle effects)
+Hyperparameter tuning (GridSearch / RandomizedSearch)
 
-- Deploy as an interactive web dashboard for public use
+Cross-validation
 
-- Automate hyperparameter tuning and cross-validation
+Additional models (XGBoost, SVM)
 
-## License 
+Explainability tools (SHAP values)
 
-This project is licensed under the MIT License – see LICENSE for details.
+Temporal or seasonal analysis
+
+👤 Author
+
+Miled Trabelssi
+Computer Engineering Student
+Data Analysis & Machine Learning Enthusiast
