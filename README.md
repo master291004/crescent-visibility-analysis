@@ -1,5 +1,3 @@
-# crescent-visibility-analysis
-Machine learning–based analysis and prediction of lunar crescent visibility using astronomical and geospatial features.
 🌙 Crescent Visibility Analysis and Prediction
 📌 Project Overview
 
@@ -21,7 +19,7 @@ Train and evaluate machine learning models to predict crescent visibility
 Compare a baseline model (Logistic Regression) with a non-linear model (Random Forest)
 
 Identify the most influential features affecting visibility
-
+```
 🗂️ Project Structure
 crescent-visibility-analysis/
 │
@@ -47,7 +45,7 @@ crescent-visibility-analysis/
 │
 ├── requirements.txt
 └── README.md
-
+``` 
 📊 Dataset Description
 
 The dataset contains astronomical and geographical parameters, including:
@@ -143,20 +141,20 @@ Results demonstrate the advantage of non-linear models (Random Forest) in captur
 ▶️ How to Run the Project
 
 Clone the repository:
-
+```
 git clone https://github.com/your-username/crescent-visibility-analysis.git
 cd crescent-visibility-analysis
-
+```
 
 Install dependencies:
-
+```
 pip install -r requirements.txt
-
+```
 
 Run the full pipeline:
-
+```
 python src/main.py
-
+```
 
 All figures and evaluation metrics will be saved in the results/ directory.
 
