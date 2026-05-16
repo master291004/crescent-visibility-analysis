@@ -149,7 +149,7 @@ cd crescent-visibility-analysis
 
 2. Install dependencies:
 ```
-pip install -r requirements.txt
+pip install -r requirements
 ```
 
 3. Run the full pipeline:
