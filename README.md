@@ -23,30 +23,52 @@ The repository is structured as a reproducible data science pipeline, separating
 * Identify the most influential features affecting visibility
 ## 🗂️ Project Structure
 ```
+## 🗂️ Project Structure
+
+```text
 crescent-visibility-analysis/
 │
 ├── data/
-│   ├── raw/                # Original dataset (Final.csv)
-│   └── processed/          # Cleaned and feature-engineered data
+│   ├── processed/
+│   │   └── cleaned_data.csv
+│   └── raw/
+│       └── Final.csv
 │
 ├── notebooks/
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_modeling_experiments.ipynb
-│   └── 03_visualization_examples.ipynb
+│   ├── 01_exploratory_data_analysis.ipynb
+│   └── 02_modeling_experiments.ipynb
 │
 ├── src/
-│   ├── data_processing.py  # Data loading, cleaning, feature engineering
-│   ├── visualization.py   # Plotting and geospatial visualizations
-│   ├── models.py           # ML model training functions
-│   ├── evaluation.py       # Metrics, ROC, confusion matrices
-│   └── main.py             # End-to-end execution pipeline
+│   ├── data_processing.py      # Data loading, cleaning, feature engineering
+│   ├── visualization.py        # Statistical and geospatial visualizations
+│   ├── models.py               # Machine learning model training
+│   ├── evaluation.py           # Model evaluation and metrics
+│   ├── main.py                 # End-to-end pipeline execution
+│   ├── __init__.py
+│   └── data/
+│       └── processed/
 │
 ├── results/
-│   ├── figures/            # Generated plots and maps
-│   └── metrics/            # Evaluation outputs (ROC, confusion matrix)
+│   ├── figures/
+│   │   ├── map_all_visibility.png
+│   │   ├── map_visibility_0.png
+│   │   ├── map_visibility_1.png
+│   │   ├── plot_distribution_Visibility.png
+│   │   ├── plot_histograms.png
+│   │   └── plot_correlation_heatmap.png
+│   │
+│   └── metrics/
+│       ├── confusion_matrix.png
+│       ├── confusion_matrix_lr.png
+│       ├── roc_curve.png
+│       ├── roc_curve_lr.png
+│       ├── roc_comparison.png
+│       └── model_comparison.png
 │
 ├── requirements.txt
-└── README.md
+├── README.md
+└── LICENSE
+```
 ``` 
 ## 📊 Dataset Description
 The dataset contains astronomical and geographical parameters, including:
@@ -141,31 +163,99 @@ Results demonstrate the advantage of non-linear models (Random Forest) in captur
 
 ## ▶️ How to Run the Project
 
-1. Clone the repository:
-```
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/master291004/crescent-visibility-analysis.git
 cd crescent-visibility-analysis
 ```
 
-2. Install dependencies:
-```
-pip install -r requirements
+### 2. Create a Virtual Environment
+
+#### Linux / macOS
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-3. Run the full pipeline:
+#### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 ```
+
+#### Windows (Command Prompt)
+
+```cmd
+python -m venv .venv
+.venv\Scripts\activate.bat
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+> **Note:** On Debian/Ubuntu systems, installing dependencies inside a virtual environment avoids PEP 668 ("externally managed environment") issues.
+
+### 4. Run the Full Pipeline
+
+```bash
 python src/main.py
 ```
 
-All figures and evaluation metrics will be saved in the results/ directory.
+The pipeline will:
 
+- Load and preprocess the crescent visibility dataset
+- Perform feature engineering
+- Generate geospatial and statistical visualizations
+- Train Logistic Regression and Random Forest models
+- Evaluate model performance
+- Save all figures and metrics automatically
+
+### 5. View Results
+
+Generated outputs are saved to:
+
+```text
+results/
+├── figures/
+│   ├── map_all_visibility.png
+│   ├── map_visibility_0.png
+│   ├── map_visibility_1.png
+│   ├── plot_distribution_Visibility.png
+│   ├── plot_histograms.png
+│   └── plot_correlation_heatmap.png
+│
+└── metrics/
+    ├── confusion_matrix.png
+    ├── confusion_matrix_lr.png
+    ├── roc_curve.png
+    ├── roc_curve_lr.png
+    └── roc_comparison.png
+```
+
+### Cross-Platform Compatibility
+
+The project uses Python's `pathlib` module for file handling, making it compatible with:
+
+- Windows
+- Linux
+- macOS
+- Docker environments
+- CI/CD pipelines
+
+No path modifications are required when running on different operating systems.
 ## 📚 Notebooks
 
 * 01_data_exploration.ipynb – Exploratory analysis and initial insights
 
 * 02_modeling_experiments.ipynb – Model training, tuning, and comparison
 
-* 03_visualization_examples.ipynb – Visual storytelling and result interpretation
 
 Notebooks are intended for analysis and presentation, while src/ contains reusable code.
 
