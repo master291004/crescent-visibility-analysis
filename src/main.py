@@ -4,13 +4,25 @@ from evaluation import plot_confusion_matrix,  plot_roc_curve, plot_roc_curve_co
 from visualization import distribution_visibility, plot_histograms, plot_correlation_heatmap, plot_visibility_map
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
+from pathlib import Path
 
 # ---------------------------
 # 1. Load and preprocess data
 # ---------------------------
 
-raw_file = 'C:\\Users\\miled\\OneDrive\\Documents\\GitHub\\crescent-visibility-analysis\\data\\raw\\Final.csv'
-processed_file = 'C:\\Users\\miled\\OneDrive\\Documents\\GitHub\\crescent-visibility-analysis\\data\\processed\\cleaned_data.csv'
+ROOT = Path(__file__).parent.parent
+
+DATA_RAW = ROOT / "data" / "raw"
+DATA_PROCESSED = ROOT / "data" / "processed"
+FIGURES = ROOT / "results" / "figures"
+METRICS = ROOT / "results" / "metrics"
+
+DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
+FIGURES.mkdir(parents=True, exist_ok=True)
+METRICS.mkdir(parents=True, exist_ok=True)
+
+raw_file = DATA_RAW / "Final.csv"
+processed_file = DATA_PROCESSED / "cleaned_data.csv"
 
 df = load_raw_data(raw_file)
 df = clean_data(df)
@@ -36,7 +48,7 @@ gdf["Visibility_label"] = gdf["Visibility"].map({0: "Invisible", 1: "Visible"})
 plot_visibility_map(
     gdf,
     title="Moon Visibility Observations (0 & 1)",
-    filename="results/figures/map_all_visibility.png",
+    filename=FIGURES / "map_all_visibility.png",
     colors=["skyblue", "orange"]
 )
 
@@ -44,7 +56,7 @@ plot_visibility_map(
 plot_visibility_map(
     gdf[gdf["Visibility"]==0],
     title="Moon Visibility Observations (0 only)",
-    filename="results/figures/map_visibility_0.png",
+    filename=FIGURES / "map_visibility_0.png",
     colors=["skyblue"]
 )
 
@@ -52,16 +64,16 @@ plot_visibility_map(
 plot_visibility_map(
     gdf[gdf["Visibility"]==1],
     title="Moon Visibility Observations (1 only)",
-    filename="results/figures/map_visibility_1.png",
+    filename=FIGURES / "map_visibility_1.png",
     colors=["orange"]
 )
 
 #---------------------------
 # 3. Visualizations of feature distributions
 #---------------------------
-distribution_visibility(df, filename="results/figures/plot_distribution_Visibility.png")
-plot_histograms(df, filename="results/figures/plot_histograms.png")
-plot_correlation_heatmap(df, filename="results/figures/plot_correlation_heatmap.png")
+distribution_visibility(df, filename=FIGURES / "plot_distribution_Visibility.png")
+plot_histograms(df, filename=FIGURES / "plot_histograms.png")
+plot_correlation_heatmap(df, filename=FIGURES / "plot_correlation_heatmap.png")
 
 #---------------------------
 # 4. Split features and labels 
@@ -93,7 +105,7 @@ classification = classification_report(y_test, y_pred, output_dict=True)
 print(classification_report_text(y_test, y_pred))
 
 # ROC curve
-auc = plot_roc_curve(y_test, y_prob, filename="results/metrics/roc_curve.png")
+auc = plot_roc_curve(y_test, y_prob,title ="ROC Curve - Random Forest", filename="results/metrics/roc_curve.png")
 print(f"AUC: {auc:.2f}")
 
 #---------------------------
@@ -114,7 +126,7 @@ print("Logistic Regression Performance:")
 print(classification_report_text(y_test, y_pred_lr))
 
 # ROC curve
-auc_lr = plot_roc_curve(y_test, y_prob_lr, filename="results/metrics/roc_curve_lr.png")
+auc_lr = plot_roc_curve(y_test, y_prob_lr,title ="ROC Curve - Logistic Regression ", filename="results/metrics/roc_curve_lr.png")
 print(f"Logistic Regression AUC: {auc_lr:.2f}")
 
 
