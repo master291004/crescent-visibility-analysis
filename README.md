@@ -69,7 +69,6 @@ crescent-visibility-analysis/
 ├── README.md
 └── LICENSE
 ```
-``` 
 ## 📊 Dataset Description
 The dataset contains astronomical and geographical parameters, including:
 
