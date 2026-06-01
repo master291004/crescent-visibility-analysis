@@ -65,7 +65,7 @@ crescent-visibility-analysis/
 │       ├── roc_comparison.png
 │       └── model_comparison.png
 │
-├── requirements.txt
+├── requirements
 ├── README.md
 └── LICENSE
 ```
@@ -198,7 +198,7 @@ python -m venv .venv
 
 ```bash
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements
 ```
 
 > **Note:** On Debian/Ubuntu systems, installing dependencies inside a virtual environment avoids PEP 668 ("externally managed environment") issues.
