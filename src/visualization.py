@@ -5,9 +5,11 @@ from matplotlib.colors import ListedColormap
 import numpy as np
 import seaborn as sns
 import geopandas as gpd
+from pathlib import Path
 
 df=pd.read_csv("data/processed/cleaned_data.csv")
-
+world_file = Path(__file__).parent.parent / "data" / "countries" /"ne_110m_admin_0_countries.zip"
+world = gpd.read_file(world_file)
 # --- 1.distribution of visibility ---
 def distribution_visibility(df, filename):
     """
